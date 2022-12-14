@@ -37,6 +37,7 @@ n_classes: 2
 
 ### 3.2 Config model training
 Setting it in config/train_config.yaml
+
 Example:
 ```
 n_epochs: 5
