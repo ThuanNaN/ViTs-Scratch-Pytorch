@@ -119,8 +119,8 @@ if __name__ == "__main__":
         opt = argparse.Namespace(**yaml.load(f, Loader=yaml.SafeLoader))
 
     opt.n_classes = DATA_CONFIG["n_classes"]
-    # opt.device = "cuda" if torch.cuda.is_available() else "cpu"
-    opt.device = torch.device("mps")
+    opt.device = "cuda" if torch.cuda.is_available() else "cpu"
+    # opt.device = torch.device("mps")
 
     data_transforms = get_data_transforms(opt.model_name, opt.default_data_transform)
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     model = ViT(
         image_size=224,
         patch_size=32,
-        num_classes=2,
+        num_classes=opt.n_classes,
         dim = 1024,
         depth=6,
         heads=8,
