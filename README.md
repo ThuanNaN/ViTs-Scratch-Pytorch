@@ -3,5 +3,3 @@
 
 
 
-# Reference:
-1. vit-pytorch repo:  https://github.com/lucidrains/vit-pytorch

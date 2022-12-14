@@ -1,3 +1,6 @@
+
+# Reference:  https://github.com/lucidrains/vit-pytorch
+
 import torch
 import torch.nn as nn
 
