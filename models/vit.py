@@ -29,12 +29,20 @@ class FeedForward(nn.Module):
             nn.GELU(),
             nn.Dropout(dropout),
             nn.Linear(hiden_dim, dim),
-            nn.Dropout()
+            nn.Dropout(dropout)
+        )
+
+        self.net_conv = nn.Sequential(
+            nn.Conv1d(dim,  hiden_dim, kernel_size=1),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Conv1d(hiden_dim, dim, kernel_size=1),
+            nn.Dropout(dropout)
         )
     
     def forward(self, x):
-
-        return self.net(x)
+        # return self.net(x)
+        return self.net_conv(x.permute(0, -1, 1)).permute(0, -1, 1)
 
 
 class Attention(nn.Module):
