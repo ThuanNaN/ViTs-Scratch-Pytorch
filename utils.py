@@ -46,13 +46,14 @@ def get_data_transforms(model_name, tf_default):
         ])
 
     else:
+        IMG_SIZE = 224
         data_transforms = transforms.Compose([
                 transforms.Resize((224,224)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]), 
         ])
 
-    return data_transforms
+    return data_transforms, IMG_SIZE
 
 def colorstr(*input):
     *args, string = input if len(input) > 1 else ('blue', 'bold', input[0]) 

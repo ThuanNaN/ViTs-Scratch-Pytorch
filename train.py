@@ -119,10 +119,8 @@ if __name__ == "__main__":
         opt = argparse.Namespace(**yaml.load(f, Loader=yaml.SafeLoader))
 
     opt.n_classes = DATA_CONFIG["n_classes"]
-    opt.device = "cuda" if torch.cuda.is_available() else "cpu"
-    # opt.device = torch.device("mps")
 
-    data_transforms = get_data_transforms(opt.model_name, opt.default_data_transform)
+    data_transforms, img_size = get_data_transforms(opt.model_name, opt.default_data_transform)
 
     print("Data transforms: ")
     print(data_transforms)
@@ -138,17 +136,16 @@ if __name__ == "__main__":
     }
 
     model = ViT(
-        image_size=224,
-        patch_size=32,
+        image_size=img_size,
+        patch_size=opt.patch_size,
         num_classes=opt.n_classes,
-        dim = 1024,
-        depth=6,
-        heads=8,
-        mlp_dim=2048,
-        dropout=0.1,
-        emb_dropout=0.1,
+        dim = opt.dim,
+        depth=opt.depth,
+        heads=opt.heads,
+        mlp_dim=opt.mlp_dim,
+        dropout=opt.dropout,
+        emb_dropout=opt.emb_dropout,
     )
-
 
 
     optimizer = optim.Adam(model.parameters(), lr=opt.learning_rate, weight_decay=opt.weight_decay)
